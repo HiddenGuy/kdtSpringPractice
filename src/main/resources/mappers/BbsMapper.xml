@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.springdemo.test.mapper.BbsMapper">
+
+    <!-- Mapper에 바인딩된 interface에 명세된 추상메서드-->
+    <insert id="saveRow"
+            parameterType="com.example.springdemo.test.domain.BbsRequestDTO">
+        INSERT INTO TB_BBS(TITLE, CONTENT)
+        VALUES ( #{ title }, #{ content } )
+
+    </insert>
+
+    <select id="selectRow"
+            resultType="com.example.springdemo.test.domain.BbsResponseDTO">
+        SELECT ID, TITLE, CONTENT
+        FROM TB_BBS
+    </select>
+
+    <!-- getRow -->
+
+    <select id="getRow"
+            parameterType="java.util.HashMap"
+            resultType="com.example.springdemo.test.domain.BbsResponseDTO">
+
+        SELECT ID, TITLE, CONTENT
+        FROM TB_BBS
+        WHERE ID = #{ id }
+    </select>
+    <delete id="deleteRow"
+            parameterType="java.util.HashMap">
+        DELETE FROM TB_BBS
+        WHERE ID = #{ id }
+    </delete>
+
+    <!-- updateRow -->
+
+    <update id="updateRow"
+            parameterType="com.example.springdemo.test.domain.BbsRequestDTO">
+        UPDATE TB_BBS
+        SET TITLE = #{ title }, CONTENT = #{ content }
+        WHERE ID = #{ id }
+    </update>
+
+    <!-- commentSaveRow -->
+
+    <insert id="commentSaveRow"
+            parameterType="com.example.springdemo.test.domain.comment.CommentRequestDTO">
+        INSERT INTO TB_COMMENT(CONTENT, BBSID)
+        VALUES ( #{ content } , #{ bbsid })
+
+    </insert>
+
+    <!-- commentSelectRow --> 
+
+    <select id="commentSelectRow"
+            parameterType="java.util.HashMap"
+            resultType="com.example.springdemo.test.domain.comment.CommentResponseDTO">
+        SELECT ID, CONTENT, BBSID
+        FROM TB_COMMENT
+        WHERE BBSID = #{ id }
+    </select>
+
+</mapper>
